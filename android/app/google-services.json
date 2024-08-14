@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "83418604449",
+    "project_id": "apostas-o-retorno-430604",
+    "storage_bucket": "apostas-o-retorno-430604.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83418604449:android:0c42c5cf776bfa3fab61e0",
+        "android_client_info": {
+          "package_name": "com.example.flutter_bets_the_return"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdLzpRVD6I6TMYW05F4HSXejnG1RFonqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
