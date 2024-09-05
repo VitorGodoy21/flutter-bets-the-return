@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
 import 'package:flutter_bets_the_return/models/bet.dart';
 import 'package:flutter_bets_the_return/themes/theme_colors.dart';
 
@@ -59,7 +60,10 @@ class _ItemListBetState extends State<ItemListBet> {
                   ],
                 ),
               ),
-              Text('${widget.bet.homeTeam} x ${widget.bet.visitingTeam}',
+              Text(
+                  widget.bet.homeTeam == "-" || widget.bet.visitingTeam == "-"
+                      ? "* Multiplos Times *"
+                      : '${widget.bet.homeTeam} x ${widget.bet.visitingTeam}',
                   style: const TextStyle(
                       color: ThemeColors.textColor,
                       fontSize: 20,
@@ -84,7 +88,8 @@ class _ItemListBetState extends State<ItemListBet> {
                       width: 2, color: ThemeColors.backgroundItemBetColor),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -100,7 +105,7 @@ class _ItemListBetState extends State<ItemListBet> {
                             ),
                           ),
                           Text(
-                            'R\$${widget.bet.value}',
+                            widget.bet.value.toBRL(),
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               color: ThemeColors.textColor,
@@ -142,7 +147,7 @@ class _ItemListBetState extends State<ItemListBet> {
                             ),
                           ),
                           Text(
-                            '${widget.bet.valueXOdd}',
+                            widget.bet.valueXOdd.toBRL(),
                             style: const TextStyle(
                               color: ThemeColors.textColor,
                               fontWeight: FontWeight.w500,

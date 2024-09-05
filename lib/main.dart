@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bets_the_return/screens/home_screen.dart';
 import 'package:flutter_bets_the_return/themes/my_theme.dart';
 
+import 'components/main_bottom_navigation_bar.dart';
 import 'firebase/firebase_options.dart';
 
 void main() async {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Apostas - O Retorno',
       theme: MyTheme,
-      home: const HomeScreen(),
+      home: const MainBottomNavigationBar(),
     );
   }
 }
