@@ -63,6 +63,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                       color: Colors.black38,
                     ),
                   ),
+                  Text('Banca disponivel: ${totalAvailableBankroll.toBRL()}'),
                   Text('Banca atual: ${totalCurrentBankroll.toBRL()}'),
                   Text('Valor em aberto: ${totalOpenValue.toBRL()}'),
                   Text('Banca inicial: ${totalInitialBankroll.toBRL()}'),
@@ -159,7 +160,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
       tempTotalWithdrawal += house.withdrawal;
       tempTotalOpenValue += houseOpenValue;
       tempTotalCurrentBankroll += tempHouse.currentBankroll;
-      tempTotalAvailableBankroll = tempHouse.availableBankroll;
+      tempTotalAvailableBankroll += tempHouse.availableBankroll;
 
       updatedHouses.add(tempHouse);
     }

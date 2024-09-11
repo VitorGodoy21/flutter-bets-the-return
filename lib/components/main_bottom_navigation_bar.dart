@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bets_the_return/screens/authors_screen.dart';
 import 'package:flutter_bets_the_return/screens/general_screen.dart';
 import 'package:flutter_bets_the_return/screens/home_screen.dart';
 
@@ -17,10 +18,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     GeneralScreen(),
-    Text(
-      'Index 2: Geral',
-      style: optionStyle,
-    ),
+    AuthorsScreen(),
     Text(
       'Index 3: Histórico',
       style: optionStyle,
@@ -44,22 +42,22 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.deepPurple,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.auto_graph),
             label: 'Geral',
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.deepPurple,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Indicações',
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.deepPurple,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: 'Histórico',
-            backgroundColor: Colors.pink,
+            backgroundColor: Colors.deepPurple,
           ),
         ],
         currentIndex: _selectedIndex,

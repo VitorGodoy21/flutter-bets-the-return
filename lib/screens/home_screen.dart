@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bets_the_return/components/filter_component.dart';
 import 'package:flutter_bets_the_return/components/item_list_bet.dart';
 import 'package:flutter_bets_the_return/models/bet.dart';
 import 'package:flutter_bets_the_return/themes/theme_colors.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Bet> listBets = [];
+  List<Bet> filteredItems = [];
 
   int totalBets = -1;
 
@@ -50,6 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  FilterComponent(
+                    columnsFuture: fetchColumns(),
+                    onFilterApplied: applyFilter,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                     child: Text(
@@ -62,13 +68,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Expanded(
-                    child: ListView(
-                      children: List.generate(
-                        listBets.length,
-                        (index) {
-                          Bet model = listBets[index];
-                          return ItemListBet(bet: model);
-                        },
+                    child: RefreshIndicator(
+                      onRefresh: () {
+                        return refresh();
+                      },
+                      child: ListView(
+                        children: List.generate(
+                          filteredItems.length,
+                          (index) {
+                            Bet model = filteredItems[index];
+                            return ItemListBet(bet: model);
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -78,11 +89,36 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void applyFilter(String? column, String value) {
+    setState(() {
+      filteredItems = listBets.where((item) {
+        return item.toMap()[column]?.toString().contains(value) ?? false;
+      }).toList();
+      totalBets = filteredItems.length;
+    });
+  }
+
+  Future<List<String>> fetchColumns() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('bets').limit(1).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot firstDocument = querySnapshot.docs.first;
+      Map<String, dynamic>? data =
+          firstDocument.data() as Map<String, dynamic>?;
+
+      if (data != null) {
+        return data.keys.toList();
+      }
+    }
+
+    return [];
+  }
+
   refresh() async {
     List<Bet> temp = [];
     QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
         .collection('bets')
-        // .where('tip_date', isEqualTo: "03/09/2024")
         .orderBy('tip_date_timestamp', descending: true)
         .get();
 
@@ -92,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() {
       listBets = temp;
+      filteredItems = temp;
       totalBets = snapshot.docs.length;
     });
   }

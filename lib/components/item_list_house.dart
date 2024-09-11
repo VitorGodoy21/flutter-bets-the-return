@@ -45,6 +45,8 @@ class _ItemListHouseState extends State<ItemListHouse> {
                     color: Colors.green),
               ),
               Text(
+                  'Banca disponivel: ${widget.house.availableBankroll.toBRL()}'),
+              Text(
                   'Banca atual: ${(widget.house.initialBankroll + widget.house.profit + widget.house.adjustment + widget.house.bonusCredits - widget.house.withdrawal).toBRL()}'),
               Text('Valor em aberto: ${widget.house.openValue.toBRL()}'),
               Text('Banca inicial: ${widget.house.initialBankroll.toBRL()}'),
