@@ -75,7 +75,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
           .get();
 
       for (var doc in betSnapshot.docs) {
-        Bet bet = Bet.fromMap(doc.data());
+        Bet bet = Bet.fromMap(doc.data(), doc.id);
         switch (bet.status) {
           case "Green":
             green++;

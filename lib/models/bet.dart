@@ -1,4 +1,7 @@
+import 'package:flutter_bets_the_return/Util/StringUtils.dart';
+
 class Bet {
+  String id;
   String author;
   String championship;
   String description;
@@ -16,6 +19,7 @@ class Bet {
   String visitingTeam;
 
   Bet({
+      required this.id,
       required this.author,
       required this.championship,
       required this.description,
@@ -32,7 +36,7 @@ class Bet {
       required this.valueXOdd,
       required this.visitingTeam});
 
-  Bet.fromMap(Map<String, dynamic> map)
+  Bet.fromMap(Map<String, dynamic> map, this.id)
       : author = map["author"],
         championship = map["championship"],
         description = map["description"],
@@ -51,6 +55,7 @@ class Bet {
 
   Map<String, dynamic> toMap() {
     return {
+      "id": id,
       "author": author,
       "championship": championship,
       "description": description,
@@ -64,7 +69,29 @@ class Bet {
       "status": status,
       "tip_date": tipDate,
       "value": value,
-      "valueXOdd": valueXOdd,
+      "valuexodd": valueXOdd,
+      "visiting_team": visitingTeam,
+    };
+  }
+
+  Map<String, dynamic> toFirebaseMap(double updatedValue, String updatedStatus) {
+    return {
+      "author": author,
+      "championship": championship,
+      "description": description,
+      "event_date": eventDate,
+      "event_date_timestamp": eventDate.toTimestamp("dd/MM/yyyy"),
+      "home_team": homeTeam,
+      "house": house,
+      "market": market,
+      "odd": odd,
+      "pre_or_live": preOrLive,
+      "sport": sport,
+      "status": updatedStatus,
+      "tip_date": tipDate,
+      "tip_date_timestamp": tipDate.toTimestamp("dd/MM/yyyy"),
+      "value": updatedValue,
+      "valuexodd": valueXOdd,
       "visiting_team": visitingTeam,
     };
   }

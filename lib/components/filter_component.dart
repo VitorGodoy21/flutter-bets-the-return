@@ -4,10 +4,10 @@ class FilterComponent extends StatefulWidget {
   final Future<List<String>> columnsFuture;
   final Function(String? column, String value) onFilterApplied;
 
-  FilterComponent({required this.columnsFuture, required this.onFilterApplied});
+  const FilterComponent({super.key, required this.columnsFuture, required this.onFilterApplied});
 
   @override
-  _FilterComponentState createState() => _FilterComponentState();
+  State<FilterComponent> createState() => _FilterComponentState();
 }
 
 class _FilterComponentState extends State<FilterComponent> {
@@ -32,7 +32,7 @@ class _FilterComponentState extends State<FilterComponent> {
             List<String> columns = snapshot.data!;
 
             return DropdownButton<String>(
-              hint: Text('Selecione a coluna'),
+              hint: Text('Selecione o filtro'),
               value: selectedColumn,
               onChanged: (String? newValue) {
                 setState(() {
@@ -57,7 +57,7 @@ class _FilterComponentState extends State<FilterComponent> {
                 flex: 7,
                 child: TextField(
                   decoration: const InputDecoration(
-                    labelText: 'Valor da coluna',
+                    labelText: 'Insira o valor a ser buscado.',
                     border: OutlineInputBorder(),
                   ),
                   onChanged: (value) {
@@ -76,6 +76,13 @@ class _FilterComponentState extends State<FilterComponent> {
                     print('Selecione uma coluna e insira um valor!');
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0)),
+                  ),
+                ),
                 child: const Icon(Icons.search),
               ),
             ],

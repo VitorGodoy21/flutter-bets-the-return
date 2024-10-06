@@ -3,6 +3,8 @@ import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
 import 'package:flutter_bets_the_return/models/bet.dart';
 import 'package:flutter_bets_the_return/themes/theme_colors.dart';
 
+import 'UpdateBetBottomSheet.dart';
+
 class ItemListBet extends StatefulWidget {
   final Bet bet;
 
@@ -13,6 +15,8 @@ class ItemListBet extends StatefulWidget {
 }
 
 class _ItemListBetState extends State<ItemListBet> {
+  String? selectedStatus;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -162,45 +166,77 @@ class _ItemListBetState extends State<ItemListBet> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: widget.bet.status == 'Aberto'
-                        ? Colors.yellow[300]
-                        : widget.bet.status == 'Green'
-                            ? Colors.green[300]
-                            : widget.bet.status == 'Red'
-                                ? Colors.red[600]
-                                : widget.bet.status == 'Anulado'
-                                    ? Colors.orange[100]
-                                    : widget.bet.status == 'Cashout'
-                                        ? Colors.blue[100]
-                                        : Colors.black38,
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 32.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(widget.bet.status,
-                              style: TextStyle(
-                                  color: widget.bet.status == 'Aberto'
-                                      ? Colors.black38
-                                      : widget.bet.status == 'Green'
-                                          ? Colors.white
-                                          : widget.bet.status == 'Red'
-                                              ? Colors.white
-                                              : widget.bet.status == 'Anulado'
-                                                  ? Colors.orange[300]
-                                                  : widget.bet.status ==
-                                                          'Cashout'
-                                                      ? Colors.blue[300]
-                                                      : Colors.black38,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      )),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: widget.bet.status == 'Aberto'
+                              ? Colors.yellow[300]
+                              : widget.bet.status == 'Green'
+                                  ? Colors.green[300]
+                                  : widget.bet.status == 'Red'
+                                      ? Colors.red[600]
+                                      : widget.bet.status == 'Anulado'
+                                          ? Colors.orange[100]
+                                          : widget.bet.status == 'Cashout'
+                                              ? Colors.blue[100]
+                                              : Colors.black38,
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 32.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(widget.bet.status,
+                                    style: TextStyle(
+                                        color: widget.bet.status == 'Aberto'
+                                            ? Colors.black38
+                                            : widget.bet.status == 'Green'
+                                                ? Colors.white
+                                                : widget.bet.status == 'Red'
+                                                    ? Colors.white
+                                                    : widget.bet.status ==
+                                                            'Anulado'
+                                                        ? Colors.orange[300]
+                                                        : widget.bet.status ==
+                                                                'Cashout'
+                                                            ? Colors.blue[300]
+                                                            : Colors.black38,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: ThemeColors.primaryColor,
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.edit_document,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                //return UpdateBetBottomSheet(bet: widget.bet);
+                                return UpdateBetBottomSheet(bet: widget.bet);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ],
@@ -210,3 +246,5 @@ class _ItemListBetState extends State<ItemListBet> {
     );
   }
 }
+
+

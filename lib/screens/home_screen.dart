@@ -108,7 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
           firstDocument.data() as Map<String, dynamic>?;
 
       if (data != null) {
-        return data.keys.toList();
+        var returnedData = data.keys.toList();
+        returnedData.add('id');
+        return returnedData;
       }
     }
 
@@ -123,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .get();
 
     for (var doc in snapshot.docs) {
-      temp.add(Bet.fromMap(doc.data()));
+      temp.add(Bet.fromMap(doc.data(), doc.id));
     }
 
     setState(() {
