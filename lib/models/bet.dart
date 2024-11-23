@@ -1,6 +1,9 @@
-import 'package:flutter_bets_the_return/Util/StringUtils.dart';
+import 'package:flutter_bets_the_return/Util/string_utils.dart';
 
 class Bet {
+
+  static const String FIREBASE_TABLE_NAME = 'bets';
+
   String id;
   String author;
   String championship;
@@ -52,6 +55,7 @@ class Bet {
         value = (map["value"] as num).toDouble(),
         valueXOdd = (map["valuexodd"] as num).toDouble(),
         visitingTeam = map["visiting_team"];
+
 
   Map<String, dynamic> toMap() {
     return {

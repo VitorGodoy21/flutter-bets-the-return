@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
+import 'package:flutter_bets_the_return/Util/double_utils.dart';
 import 'package:flutter_bets_the_return/models/bet.dart';
 import 'package:flutter_bets_the_return/themes/theme_colors.dart';
 
-import 'UpdateBetBottomSheet.dart';
+import '../bottom-sheets/update_bet_bottom_sheet.dart';
 
 class ItemListBet extends StatefulWidget {
   final Bet bet;

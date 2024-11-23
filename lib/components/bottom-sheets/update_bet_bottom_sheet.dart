@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
-import 'package:flutter_bets_the_return/components/MoneyTextField.dart';
+import 'package:flutter_bets_the_return/Util/double_utils.dart';
 
-import '../models/bet.dart';
-import '../themes/theme_colors.dart';
+import '../../models/bet.dart';
+import '../../themes/theme_colors.dart';
+import '../money_text_field.dart';
 
 class UpdateBetBottomSheet extends StatefulWidget {
   final Bet bet;
@@ -199,6 +199,6 @@ class _UpdateBetBottomSheetState extends State<UpdateBetBottomSheet> {
   void updateBet(String valueString, String? status){
     double updatedValue = double.parse(valueString.substring(3).replaceAll(',', ".").trim());
     String updatedStatus = (status != null)? status : widget.bet.status;
-    firestore.collection('bets').doc(widget.bet.id).set(widget.bet.toFirebaseMap(updatedValue, updatedStatus));
+    firestore.collection(Bet.FIREBASE_TABLE_NAME).doc(widget.bet.id).set(widget.bet.toFirebaseMap(updatedValue, updatedStatus));
   }
 }

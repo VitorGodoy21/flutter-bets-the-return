@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+import '../models/bet.dart';
+
 class FirebaseManagement{
 
   //Function to create new column using data from another column
   Future<void> updateDocuments() async {
     //collection name to create a column
-    const String collectionName = 'bets';
+    const String collectionName = Bet.FIREBASE_TABLE_NAME;
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     const int batchSize = 700; // Número de documentos a serem atualizados por vez
@@ -45,6 +47,28 @@ class FirebaseManagement{
     }
 
     print('Todos os documentos foram atualizados.');
+  }
+
+  Future<void> removeAllItemsExceptOne({
+    required String documentToKeepId,
+  }) async {
+    final firestore = FirebaseFirestore.instance;
+
+    try {
+      // Obtenha todos os documentos da coleção
+      final querySnapshot = await firestore.collection(Bet.FIREBASE_TABLE_NAME).get();
+
+      // Itere sobre os documentos e remova os que não são o especificado
+      for (var doc in querySnapshot.docs) {
+        if (doc.id != documentToKeepId) {
+          await firestore.collection(Bet.FIREBASE_TABLE_NAME).doc(doc.id).delete();
+        }
+      }
+
+      print('Todos os documentos foram removidos, exceto o documento com ID: $documentToKeepId');
+    } catch (e) {
+      print('Erro ao remover documentos: $e');
+    }
   }
 
   Timestamp? stringToTimestamp(String dateString, String dateFormatString) {

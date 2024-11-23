@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
+import 'package:flutter_bets_the_return/Util/double_utils.dart';
 
 class MoneyTextField extends StatefulWidget {
   double value;

@@ -97,37 +97,11 @@ class _GeneralScreenState extends State<GeneralScreen> {
                   Expanded(
                     child: GeneralInfoPanelGeneric<House>(
                       items: listHouses,
-                      title: 'Valor em Aberto',
+                      title: 'Banca Inicial',
                       nameBuilder: (dynamic house) => house.name,
                       valueBuilder: (dynamic house) => house.initialBankroll,
                     ),
                   ),
-                  // Text(
-                  //   'Lucro total: ${totalProfit.toBRL()}',
-                  //   style: const TextStyle(
-                  //     fontSize: 16,
-                  //     fontWeight: FontWeight.bold,
-                  //     color: Colors.black38,
-                  //   ),
-                  // ),
-                  // Text('Banca disponivel: ${totalAvailableBankroll.toBRL()}'),
-                  // Text('Banca atual: ${totalCurrentBankroll.toBRL()}'),
-                  // Text('Valor em aberto: ${totalOpenValue.toBRL()}'),
-                  // Text('Banca inicial: ${totalInitialBankroll.toBRL()}'),
-                  // Text('Crédito de Aposta: ${totalBonusCredits.toBRL()}'),
-                  // Text('Ajuste: ${totalAdjustment.toBRL()}'),
-                  // Text('Saque: ${totalWithdrawal.toBRL()}'),
-                  // Expanded(
-                  //   child: ListView(
-                  //     children: List.generate(
-                  //       listHouses.length,
-                  //       (index) {
-                  //         House model = listHouses[index];
-                  //         return ItemListHouse(house: model);
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -163,7 +137,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
       double houseProfit = 0;
       double houseOpenValue = 0;
       QuerySnapshot<Map<String, dynamic>> betsSnapshot = await firestore
-          .collection('bets')
+          .collection(Bet.FIREBASE_TABLE_NAME)
           .where(
             'house',
             isEqualTo: house.name,
@@ -172,22 +146,27 @@ class _GeneralScreenState extends State<GeneralScreen> {
 
       for (var doc in betsSnapshot.docs) {
         Bet bet = Bet.fromMap(doc.data(), doc.id);
-        switch (bet.status) {
-          case "Green":
-            houseProfit += bet.valueXOdd - bet.value;
-            break;
-          case "Cashout":
-            houseProfit += bet.valueXOdd - bet.value;
-            break;
-          case "Red":
-            houseProfit -= bet.value;
-            break;
-          case "Aberto":
-            houseOpenValue += bet.value;
-            break;
-          default:
-            houseProfit += 0;
-        }
+        // try{
+          switch (bet.status) {
+            case "Green":
+              houseProfit += bet.valueXOdd - bet.value;
+              break;
+            case "Cashout":
+              houseProfit += bet.valueXOdd - bet.value;
+              break;
+            case "Red":
+              houseProfit -= bet.value;
+              break;
+            case "Aberto":
+              houseOpenValue += bet.value;
+              break;
+            case "Anulado":
+              houseProfit += 0;
+              break;
+            default:
+              print("WRONG STATE: bet.status: ${bet.status}");
+              houseProfit += 0;
+          }
       }
       House tempHouse = house;
       tempHouse.profit = houseProfit;

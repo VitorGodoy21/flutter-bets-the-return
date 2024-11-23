@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bets_the_return/Util/ColorUtils.dart';
-import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
+import 'package:flutter_bets_the_return/Util/double_utils.dart';
+import '../Util/color_utils.dart';
 
 class GeneralInfoPanelGeneric<T> extends StatefulWidget {
   final List<T> items;

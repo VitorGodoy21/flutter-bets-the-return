@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bets_the_return/Util/DoubleUtils.dart';
+import 'package:flutter_bets_the_return/Util/double_utils.dart';
 
-import '../models/author.dart';
+import '../../models/author.dart';
 
 class ItemListAuthor extends StatefulWidget {
   final Author author;

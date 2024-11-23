@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bets_the_return/components/item_list_author.dart';
-
+import '../components/item-list/item_list_author.dart';
 import '../models/author.dart';
 import '../models/bet.dart';
 import '../themes/theme_colors.dart';
@@ -70,7 +69,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
 
       Author author = Author.fromMap(doc.data());
       QuerySnapshot<Map<String, dynamic>> betSnapshot = await firestore
-          .collection('bets')
+          .collection(Bet.FIREBASE_TABLE_NAME)
           .where('author', isEqualTo: author.name)
           .get();
 
